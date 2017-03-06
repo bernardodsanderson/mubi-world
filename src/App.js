@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
+
+// https://www.justwatch.com/ca/provider/mubi
 
 class App extends Component {
 
   componentDidMount() {
-    Axios.get('https://www.justwatch.com/ca/provider/mubi')
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const url = "https://api.justwatch.com/titles/en_CA/popular";
+    axios.post(url, { 
+      'Content-Type': 'application/json',
+      "content_types":null,
+      "presentation_types": null,
+      "providers": ['mbi'],
+      "genres": null,
+      "languages": null,
+      "release_year_from": null,
+      "release_year_until": null,
+      "monetization_types": null,
+      "min_price": null,
+      "max_price": null,
+      "scoring_filter_types": null,
+      "cinema_release": null,
+      "query": null
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
