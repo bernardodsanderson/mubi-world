@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App {
@@ -10,9 +10,18 @@ body {
 
 .App-header {
   background-color: #222;
-  height: 70px;
-  padding: 20px;
+  padding: 10px;
   color: white;
+}
+
+.location-header {
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.App-header h2 {
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .App-intro {
