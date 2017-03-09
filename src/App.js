@@ -6,6 +6,9 @@ import { Grid, Cell } from 'react-mdl';
 // https://www.justwatch.com/ca/provider/mubi
 // const url = "https://api.justwatch.com/titles/en_GB/popular";
 
+// omdb api key = d23f0971
+// example (uses imdb number): http://img.omdbapi.com/?i=tt2294629&apikey=d23f0971 and for info: http://www.omdbapi.com/?t=demons+2
+
 class App extends React.Component {
 
   constructor() {
