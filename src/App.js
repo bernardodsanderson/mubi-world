@@ -39,11 +39,12 @@ class App extends React.Component {
     const url2 = "/popular";
 
     let date = new Date();
-    let timestamp = date.getHours();
+    let timestamp = (date.getDay())+'.'+(date.getHours());
+    // Math.abs(dbTimestamp - timestamp) > 0.5
 
     base.database().ref('en_US').once('value').then(function(snapshot) {
       const dbTimestamp = snapshot.val().timestamp;
-      if (Math.abs(dbTimestamp - timestamp) > 6) {
+      if (Math.abs(dbTimestamp - timestamp) > 0.5) {
         locations.forEach(function(element) {
           // POST request
           axios.post(url+element+url2, {
@@ -63,10 +64,11 @@ class App extends React.Component {
             "query": null
           })
           .then(function (response) {
+            console.log(response);
             let storeRef = base.database().ref(element);
             let array_titles = [];
             response.data.items.forEach(function(film){
-              array_titles.push(film.title);
+              array_titles.push([film.title, film.original_release_year, film.full_path, film.poster]);
             });
             storeRef.once("value", (snapshot) => {
               storeRef.set({
@@ -142,106 +144,121 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Mubi.World</h2>
+          <h2>MUBI <img alt="logo" src={ require('./mubi.png')} /> WORLD</h2>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">United States</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_US.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Canada</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_CA.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Great Britain</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_GB.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Australia</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_AU.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">New Zealand</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NZ.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Ireland</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_IE.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Norway</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NO.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Sweden</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_SE.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Finland</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_FI.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Denmark</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_DK.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header">Italy</div>
+          <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.it_IT.map((film, index) => (
-            <Cell key={index} col={2}>{film}</Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
+        </div>
+
+        <div className="App-header" style={{padding: '20px', fontSize: '12px'}}>
+          mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.
         </div>
 
       </div>
