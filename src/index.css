@@ -37,21 +37,27 @@ body {
 }
 
 .sticky {
-  position: fixed;
+  /*position: fixed;*/
   background-color: #222;
   color: white;
   padding: 1px 20px;
   opacity: 0.8;
-  width: 100%;
+  /*width: 100%;*/
   bottom: 0;
 }
 
-.sticky ul {
-  list-style: none;
-  padding-left: 0;
+.sticky a button {
   font-size: 11px;
-  width: 100%;
-  display: inline-flex;
+  color: #aaa;
+}
+
+.sticky .mdl-cell {
+  /*margin: 0;*/
+  margin-right: 1.5%;
+}
+
+.sticky .mdl-cell--1-col {
+  /*width: calc(10.3% - 16px);*/
 }
 
 .mdl-cell a img {

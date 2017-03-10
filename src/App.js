@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import base from './base';
-import { Grid, Cell } from 'react-mdl';
+import { Grid, Cell, Button } from 'react-mdl';
+import Scroll from 'react-scroll';
 
 // https://www.justwatch.com/ca/provider/mubi
 // const url = "https://api.justwatch.com/titles/en_GB/popular";
@@ -145,27 +146,23 @@ class App extends React.Component {
     return (
       <div className="App">
 
-        <div className="App-header" style={{padding: '20px', paddingBottom: 0, fontSize: '10px', marginTop: 0}}>
-          mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.
-        </div>
-
         <div className="App-header">
           <h2>MUBI <img alt="logo" src={ require('./mubi.png')} /> WORLD</h2>
         </div>
 
         <div className="sticky">
           <Grid>
-            <Cell col={1}><a href="#us">United States</a></Cell>
-            <Cell col={1}><a href="#ca">Canada</a></Cell>
-            <Cell col={1}><a href="#gb">Great Britain</a></Cell>
-            <Cell col={1}><a href="#au">Australia</a></Cell>
-            <Cell col={1}><a href="#nz">New Zealand</a></Cell>
-            <Cell col={1}><a href="#ie">Ireland</a></Cell>
-            <Cell col={1}><a href="#no">Norway</a></Cell>
-            <Cell col={1}><a href="#se">Sweden</a></Cell>
-            <Cell col={1}><a href="#fi">Finland</a></Cell>
-            <Cell col={1}><a href="#dk">Denmark</a></Cell>
-            <Cell col={1}><a href="#it">Italy</a></Cell>
+            <Cell col={1}><a href="#us"><Button ripple>US</Button></a></Cell>
+            <Cell col={1}><a href="#ca"><Button ripple>Canada</Button></a></Cell>
+            <Cell col={1}><a href="#gb"><Button ripple>UK</Button></a></Cell>
+            <Cell col={1}><a href="#au"><Button ripple>Australia</Button></a></Cell>
+            <Cell col={1}><a href="#nz"><Button ripple>NZ</Button></a></Cell>
+            <Cell col={1}><a href="#ie"><Button ripple>Ireland</Button></a></Cell>
+            <Cell col={1}><a href="#no"><Button ripple>Norway</Button></a></Cell>
+            <Cell col={1}><a href="#se"><Button ripple>Sweden</Button></a></Cell>
+            <Cell col={1}><a href="#fi"><Button ripple>Finland</Button></a></Cell>
+            <Cell col={1}><a href="#dk"><Button ripple>Denmark</Button></a></Cell>
+            <Cell col={1}><a href="#it"><Button ripple>Italy</Button></a></Cell>
           </Grid>
         </div>
 
@@ -277,6 +274,10 @@ class App extends React.Component {
             <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
+        </div>
+
+        <div className="App-header" style={{padding: '20px', fontSize: '10px', marginTop: 0}}>
+          mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.
         </div>
 
       </div>
