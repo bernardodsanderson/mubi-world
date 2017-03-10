@@ -141,14 +141,36 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
       <div className="App">
+
+        <div className="App-header" style={{padding: '20px', paddingBottom: 0, fontSize: '10px', marginTop: 0}}>
+          mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.
+        </div>
+
         <div className="App-header">
           <h2>MUBI <img alt="logo" src={ require('./mubi.png')} /> WORLD</h2>
         </div>
 
+        <div className="sticky">
+          <Grid>
+            <Cell col={1}><a href="#us">United States</a></Cell>
+            <Cell col={1}><a href="#ca">Canada</a></Cell>
+            <Cell col={1}><a href="#gb">Great Britain</a></Cell>
+            <Cell col={1}><a href="#au">Australia</a></Cell>
+            <Cell col={1}><a href="#nz">New Zealand</a></Cell>
+            <Cell col={1}><a href="#ie">Ireland</a></Cell>
+            <Cell col={1}><a href="#no">Norway</a></Cell>
+            <Cell col={1}><a href="#se">Sweden</a></Cell>
+            <Cell col={1}><a href="#fi">Finland</a></Cell>
+            <Cell col={1}><a href="#dk">Denmark</a></Cell>
+            <Cell col={1}><a href="#it">Italy</a></Cell>
+          </Grid>
+        </div>
+
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">United States</div>
+          <div className="location-header" id="us">United States</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_US.map((film, index) => (
@@ -158,7 +180,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Canada</div>
+          <div className="location-header" id="ca">Canada</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_CA.map((film, index) => (
@@ -168,7 +190,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Great Britain</div>
+          <div className="location-header" id="gb">Great Britain</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_GB.map((film, index) => (
@@ -178,7 +200,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Australia</div>
+          <div className="location-header" id="au">Australia</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_AU.map((film, index) => (
@@ -188,7 +210,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">New Zealand</div>
+          <div className="location-header" id="nz">New Zealand</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NZ.map((film, index) => (
@@ -198,7 +220,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Ireland</div>
+          <div className="location-header" id="ie">Ireland</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_IE.map((film, index) => (
@@ -208,7 +230,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Norway</div>
+          <div className="location-header" id="no">Norway</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NO.map((film, index) => (
@@ -218,7 +240,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Sweden</div>
+          <div className="location-header" id="se">Sweden</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_SE.map((film, index) => (
@@ -228,7 +250,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Finland</div>
+          <div className="location-header" id="fi">Finland</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_FI.map((film, index) => (
@@ -238,7 +260,7 @@ class App extends React.Component {
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Denmark</div>
+          <div className="location-header" id="dk">Denmark</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_DK.map((film, index) => (
@@ -247,18 +269,14 @@ class App extends React.Component {
           </Grid>
         </div>
 
-        <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header">Italy</div>
+        <div style={{width: '80%', margin: 'auto', marginBottom: '150px'}}>
+          <div className="location-header" id="it">Italy</div>
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.it_IT.map((film, index) => (
             <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
           ))}
           </Grid>
-        </div>
-
-        <div className="App-header" style={{padding: '20px', fontSize: '12px'}}>
-          mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.
         </div>
 
       </div>

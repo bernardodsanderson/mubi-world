@@ -12,6 +12,8 @@ body {
   background-color: #222;
   padding: 10px;
   color: white;
+  margin-top: -20px;
+  padding-bottom: 5px;
 }
 
 .location-header {
@@ -32,6 +34,24 @@ body {
 
 .mdl-cell a {
   font-size: 10px;
+}
+
+.sticky {
+  position: fixed;
+  background-color: #222;
+  color: white;
+  padding: 1px 20px;
+  opacity: 0.8;
+  width: 100%;
+  bottom: 0;
+}
+
+.sticky ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 11px;
+  width: 100%;
+  display: inline-flex;
 }
 
 .mdl-cell a img {
