@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import base from './base';
 import { Grid, Cell, Button } from 'react-mdl';
-import Scroll from 'react-scroll';
+// import Scroll from 'react-scroll';
 
 // https://www.justwatch.com/ca/provider/mubi
 // const url = "https://api.justwatch.com/titles/en_GB/popular";
@@ -150,7 +150,7 @@ class App extends React.Component {
           <h2>MUBI <img alt="logo" src={ require('./mubi.png')} /> WORLD</h2>
         </div>
 
-        <div className="sticky">
+        <div className="menu">
           <Grid>
             <Cell col={1}><a href="#us"><Button ripple>US</Button></a></Cell>
             <Cell col={1}><a href="#ca"><Button ripple>Canada</Button></a></Cell>
@@ -164,6 +164,10 @@ class App extends React.Component {
             <Cell col={1}><a href="#dk"><Button ripple>Denmark</Button></a></Cell>
             <Cell col={1}><a href="#it"><Button ripple>Italy</Button></a></Cell>
           </Grid>
+        </div>
+
+        <div className="sticky">
+          <a href="#"><i className="material-icons">arrow_upward</i></a>
         </div>
 
         <div style={{width: '80%', margin: 'auto'}}>

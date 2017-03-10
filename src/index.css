@@ -37,6 +37,25 @@ body {
 }
 
 .sticky {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 5px 5px 0px 5px;
+  background-color: #222;
+  opacity: 0.8;
+  border-radius: 2px;
+}
+
+.sticky a {
+  color: rgb(170, 170, 170);
+}
+
+.sticky a:hover {
+  opacity: 0.5;
+}
+
+.menu {
   /*position: fixed;*/
   background-color: #222;
   color: white;
@@ -46,17 +65,17 @@ body {
   bottom: 0;
 }
 
-.sticky a button {
+.menu a button {
   font-size: 11px;
   color: #aaa;
 }
 
-.sticky .mdl-cell {
+.menu .mdl-cell {
   /*margin: 0;*/
   margin-right: 1.5%;
 }
 
-.sticky .mdl-cell--1-col {
+.menu .mdl-cell--1-col {
   /*width: calc(10.3% - 16px);*/
 }
 
