@@ -43,6 +43,15 @@ class App extends React.Component {
     let timestamp = (date.getDay())+'.'+(date.getHours());
     // Math.abs(dbTimestamp - timestamp) > 0.5
 
+    base.auth().signInAnonymously().then(authData => {
+      console.log('AUTHED USER: ', authData.uid);
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+
     base.database().ref('en_US').once('value').then(function(snapshot) {
       const dbTimestamp = snapshot.val().timestamp;
       if (Math.abs(dbTimestamp - timestamp) > 0.5) {
@@ -65,7 +74,7 @@ class App extends React.Component {
             "query": null
           })
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             let storeRef = base.database().ref(element);
             let array_titles = [];
             response.data.items.forEach(function(film){
