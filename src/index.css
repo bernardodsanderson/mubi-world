@@ -16,6 +16,10 @@ body {
   padding-bottom: 5px;
 }
 
+.App-header img {
+  max-width: 75px;
+}
+
 .location-header {
   margin-top: 40px;
   font-weight: 700;
