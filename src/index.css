@@ -79,8 +79,10 @@ body {
   /*margin-right: 1.5%;*/
 }
 
-.menu .mdl-cell--1-col {
-  /*width: calc(10.3% - 16px);*/
+@media (min-width: 840px) {
+  .menu .mdl-cell--1-col {
+    width: calc(9% - 16px);
+  }
 }
 
 .mdl-cell a img {

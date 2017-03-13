@@ -49,6 +49,7 @@ class App extends React.Component {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
+      console.log(errorCode, errorMessage);
       // ...
     });
 
