@@ -4,6 +4,15 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+body a {
+  color: rgb(78, 78, 78);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
 .App {
   text-align: center;
 }
@@ -90,7 +99,7 @@ body {
 }
 
 .mdl-cell a img:hover {
-  box-shadow: 2px 2px 2px #777;
+  box-shadow: 1px 1px 1px #777;
 }
 
 .mdl-cell a span {

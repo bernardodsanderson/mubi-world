@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import base from './base';
-import { Grid, Cell, Button } from 'react-mdl';
+import { Grid, Cell, Button, ProgressBar } from 'react-mdl';
 // import Scroll from 'react-scroll';
 
 // https://www.justwatch.com/ca/provider/mubi
@@ -25,11 +25,12 @@ class App extends React.Component {
       en_IE: [],
       it_IT: [],
       en_NZ: [],
-      en_FI: []
+      en_FI: [],
+      loaded: false
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
     const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI'];
     const full_location = {
@@ -43,15 +44,24 @@ class App extends React.Component {
     let timestamp = (date.getDay())+'.'+(date.getHours());
     // Math.abs(dbTimestamp - timestamp) > 0.5
 
-    base.auth().signInAnonymously().then(authData => {
-      console.log('AUTHED USER: ', authData.uid);
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+    base.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          // User is signed in
+          console.log(user);
+      } else {
+          // User is signed out.
+          base.auth().signInAnonymously().then(authData => {
+            console.log('AUTHED USER: ', authData.uid);
+          }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+            // ...
+          });
+      }
       // ...
-    });
+  });
 
     base.database().ref('en_US').once('value').then(function(snapshot) {
       const dbTimestamp = snapshot.val().timestamp;
@@ -78,8 +88,19 @@ class App extends React.Component {
             // console.log(response);
             let storeRef = base.database().ref(element);
             let array_titles = [];
-            response.data.items.forEach(function(film){
-              array_titles.push([film.title, film.original_release_year, film.full_path, film.poster]);
+            response.data.items.forEach(function(film) {
+              let credit_director = '';
+              if (film.credits !== undefined) {
+                film.credits.forEach(function(credit) {
+                  if(credit.role === 'DIRECTOR') {
+                    credit_director = credit.name;
+                  }
+                });
+              } else {
+                credit_director = 'No Director';
+              }
+              if (credit_director === '') { credit_director = 'No Director'; }
+              array_titles.push([film.title, film.original_release_year, film.full_path, film.poster, credit_director]);
             });
             storeRef.once("value", (snapshot) => {
               storeRef.set({
@@ -97,7 +118,7 @@ class App extends React.Component {
     });
 
     this.goThroughFilms();
-    
+
   }
 
   goThroughFilms() {
@@ -107,7 +128,7 @@ class App extends React.Component {
       base.database().ref(place).once('value').then((snapshot) => {
         let all_films = snapshot.val();
         let array_films = [];
-        all_films.films.map(film => {
+        all_films.films.forEach(film => {
           array_films.push(film);
         });
         switch(place) {
@@ -184,8 +205,9 @@ class App extends React.Component {
           <div className="location-header" id="us">United States</div>
           <hr/>
           <Grid className="demo-grid-ruler">
+          <div style={{display: this.state.loaded ? 'block' : 'none'}}><ProgressBar indeterminate /></div>
           { this.state.en_US.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -195,7 +217,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_CA.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -205,7 +227,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_GB.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -215,7 +237,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_AU.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -225,7 +247,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NZ.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -235,7 +257,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_IE.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -245,7 +267,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_NO.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -255,7 +277,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_SE.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -265,7 +287,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_FI.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -275,7 +297,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.en_DK.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
@@ -285,7 +307,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           { this.state.it_IT.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
+            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
           ))}
           </Grid>
         </div>
