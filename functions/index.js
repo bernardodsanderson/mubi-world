@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const schedule = require('node-schedule');
 const axios = require('axios');
 
 // Start writing Firebase Functions
@@ -89,6 +90,14 @@ admin.database().ref('en_US').once('value').then(function(snapshot) {
       });
     }, this);
 });
+
+// Scheduling
+var rule = new schedule.RecurrenceRule();
+rule.hour = 6;
+
+// var j = schedule.scheduleJob(rule, function(){
+//   updateDatabase();
+// });
 
 exports.mubi = functions.database.ref('/')
   .onWrite(event => {
