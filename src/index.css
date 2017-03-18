@@ -42,7 +42,7 @@ a:hover {
 
 .App-header h2 {
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 700;
 }
 
 .App-intro {
@@ -85,11 +85,6 @@ a:hover {
 .menu a button {
   font-size: 11px;
   color: #aaa;
-}
-
-.menu .mdl-cell {
-  /*margin: 0;*/
-  /*margin-right: 1.5%;*/
 }
 
 @media (min-width: 840px) {
