@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import base from './base';
 import { Grid, Cell, Button, ProgressBar } from 'react-mdl';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // import Scroll from 'react-scroll';
 
 // https://www.justwatch.com/ca/provider/mubi
@@ -201,6 +202,8 @@ class App extends React.Component {
           <a href="#"><i className="material-icons">arrow_upward</i></a>
         </div>
 
+      <ReactCSSTransitionGroup transitionName="films" transitionEnterTimeout={500} transitionLeaveTimeout={300} transitionAppear={true} transitionAppearTimeout={2000}>
+
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="us">United States</div>
           <hr/>
@@ -311,6 +314,8 @@ class App extends React.Component {
           ))}
           </Grid>
         </div>
+
+      </ReactCSSTransitionGroup>
 
         <div className="App-header" style={{padding: '20px', fontSize: '10px', marginTop: 0}}>
           mubi.world is not associate with <a href="https://mubi.com">MUBI</a> in any way. Big thanks to <a href="https://www.justwatch.com/">JustWatch</a> for their amazing API.

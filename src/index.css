@@ -13,6 +13,10 @@ a:hover {
   opacity: 0.8;
 }
 
+.App-header a {
+  color: #bbb;
+}
+
 .App {
   text-align: center;
 }
@@ -107,4 +111,31 @@ a:hover {
   display: block;
   font-weight: 700;
   margin-top: 10px;
+}
+
+.films-enter {
+  opacity: 0.01;
+}
+
+.films-enter.films-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.films-leave {
+  opacity: 1;
+}
+
+.films-leave.films-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.films-appear {
+  opacity: 0.01;
+}
+
+.films-appear.films-appear-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
 }

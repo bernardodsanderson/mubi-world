@@ -5,7 +5,8 @@
     "axios": "^0.15.3",
     "firebase-admin": "^4.1.2",
     "firebase-functions": "^0.5",
-    "node-schedule": "^1.2.1"
+    "node-schedule": "^1.2.1",
+    "scraper": "0.0.9"
   },
   "private": true
 }
