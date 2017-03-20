@@ -95,6 +95,7 @@ a:hover {
 
 .mdl-cell a img {
   width: 100%;
+  border-radius: 2px;
 }
 
 .mdl-cell a img:hover {
