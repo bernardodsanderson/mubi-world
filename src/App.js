@@ -66,7 +66,7 @@ class App extends React.Component {
 
     base.database().ref('en_US').once('value').then(function(snapshot) {
       const dbTimestamp = snapshot.val().timestamp;
-      if (Math.abs(dbTimestamp - timestamp) > 0.5) {
+      if (true) {
         locations.forEach(function(element) {
           // POST request
           axios.post(url+element+url2, {
