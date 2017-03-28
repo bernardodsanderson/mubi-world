@@ -41,8 +41,8 @@ class App extends React.Component {
     const url = "https://api.justwatch.com/titles/";
     const url2 = "/popular";
 
-    let date = new Date();
-    let timestamp = (date.getDay())+'.'+(date.getHours());
+    // let date = new Date();
+    // let timestamp = (date.getDay())+'.'+(date.getHours());
     // Math.abs(dbTimestamp - timestamp) > 0.5
 
     base.auth().onAuthStateChanged(function(user) {
@@ -65,7 +65,7 @@ class App extends React.Component {
   });
 
     base.database().ref('en_US').once('value').then(function(snapshot) {
-      const dbTimestamp = snapshot.val().timestamp;
+      // const dbTimestamp = snapshot.val().timestamp;
       if (true) {
         locations.forEach(function(element) {
           // POST request
@@ -106,8 +106,7 @@ class App extends React.Component {
             storeRef.once("value", (snapshot) => {
               storeRef.set({
                 location: full_location[element],
-                films: array_titles,
-                timestamp: timestamp
+                films: array_titles
               })
             });
           })
@@ -173,6 +172,21 @@ class App extends React.Component {
     });
   }
 
+  // componentDidUpdate(nextProps, nextState) {
+    // console.log(nextState.en_US.length);
+    // if(this.state.en_US.length > 0) {
+      // this.setState({loaded: true});
+    // }
+  // }
+
+  toMap(data) {
+    return (
+      data.map((film, index) => (
+        <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
+      ))
+    )
+  }
+
   render() {
 
     return (
@@ -209,9 +223,7 @@ class App extends React.Component {
           <hr/>
           <Grid className="demo-grid-ruler">
           <div style={{display: this.state.loaded ? 'block' : 'none'}}><ProgressBar indeterminate /></div>
-          { this.state.en_US.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_US) }
           </Grid>
         </div>
 
@@ -219,9 +231,7 @@ class App extends React.Component {
           <div className="location-header" id="ca">Canada</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_CA.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_CA) }
           </Grid>
         </div>
 
@@ -229,9 +239,7 @@ class App extends React.Component {
           <div className="location-header" id="gb">Great Britain</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_GB.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_GB) }
           </Grid>
         </div>
 
@@ -239,9 +247,7 @@ class App extends React.Component {
           <div className="location-header" id="au">Australia</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_AU.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_AU) }
           </Grid>
         </div>
 
@@ -249,9 +255,7 @@ class App extends React.Component {
           <div className="location-header" id="nz">New Zealand</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_NZ.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_NZ) }
           </Grid>
         </div>
 
@@ -259,9 +263,7 @@ class App extends React.Component {
           <div className="location-header" id="ie">Ireland</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_IE.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_IE) }
           </Grid>
         </div>
 
@@ -269,9 +271,7 @@ class App extends React.Component {
           <div className="location-header" id="no">Norway</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_NO.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_NO) }
           </Grid>
         </div>
 
@@ -279,9 +279,7 @@ class App extends React.Component {
           <div className="location-header" id="se">Sweden</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_SE.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_SE) }
           </Grid>
         </div>
 
@@ -289,9 +287,7 @@ class App extends React.Component {
           <div className="location-header" id="fi">Finland</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_FI.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_FI) }
           </Grid>
         </div>
 
@@ -299,9 +295,7 @@ class App extends React.Component {
           <div className="location-header" id="dk">Denmark</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.en_DK.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.en_DK) }
           </Grid>
         </div>
 
@@ -309,9 +303,7 @@ class App extends React.Component {
           <div className="location-header" id="it">Italy</div>
           <hr/>
           <Grid className="demo-grid-ruler">
-          { this.state.it_IT.map((film, index) => (
-            <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
-          ))}
+          { this.toMap(this.state.it_IT) }
           </Grid>
         </div>
 
