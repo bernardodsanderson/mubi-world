@@ -216,11 +216,11 @@ class App extends React.Component {
           <a href="#"><i className="material-icons">arrow_upward</i></a>
         </div>
 
-      <ReactCSSTransitionGroup transitionName="films" transitionEnterTimeout={500} transitionLeaveTimeout={300} transitionAppear={true} transitionAppearTimeout={2000}>
+      <ReactCSSTransitionGroup transitionName="films" transitionEnterTimeout={800} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={2000}>
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="us">United States</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           <div style={{display: this.state.loaded ? 'block' : 'none'}}><ProgressBar indeterminate /></div>
           { this.toMap(this.state.en_US) }
@@ -229,7 +229,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="ca">Canada</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_CA) }
           </Grid>
@@ -237,7 +237,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="gb">Great Britain</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_GB) }
           </Grid>
@@ -245,7 +245,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="au">Australia</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_AU) }
           </Grid>
@@ -253,7 +253,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="nz">New Zealand</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_NZ) }
           </Grid>
@@ -261,7 +261,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="ie">Ireland</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_IE) }
           </Grid>
@@ -269,7 +269,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="no">Norway</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_NO) }
           </Grid>
@@ -277,7 +277,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="se">Sweden</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_SE) }
           </Grid>
@@ -285,7 +285,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="fi">Finland</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_FI) }
           </Grid>
@@ -293,7 +293,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="dk">Denmark</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_DK) }
           </Grid>
@@ -301,7 +301,7 @@ class App extends React.Component {
 
         <div style={{width: '80%', margin: 'auto', marginBottom: '150px'}}>
           <div className="location-header" id="it">Italy</div>
-          <hr/>
+          <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.it_IT) }
           </Grid>

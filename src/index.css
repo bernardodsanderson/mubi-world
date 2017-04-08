@@ -13,6 +13,7 @@ a:hover {
   opacity: 0.8;
 }
 
+/* General App */
 .App-header a {
   color: #bbb;
 }
@@ -36,8 +37,10 @@ a:hover {
 .location-header {
   margin-top: 40px;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 24px;
   margin-bottom: 30px;
+  padding-top: 10px;
+  text-transform: uppercase;
 }
 
 .App-header h2 {
@@ -87,12 +90,6 @@ a:hover {
   color: #aaa;
 }
 
-@media (min-width: 840px) {
-  .menu .mdl-cell--1-col {
-    width: calc(9% - 16px);
-  }
-}
-
 .mdl-cell a img {
   width: 100%;
   border-radius: 2px;
@@ -109,13 +106,23 @@ a:hover {
   margin-top: 10px;
 }
 
+/* Films */
+.divider {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  height: 22px;
+  margin-bottom: -20px;
+  margin-top: -10px;
+}
+
 .films-enter {
   opacity: 0.01;
 }
 
 .films-enter.films-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 800ms ease-in;
 }
 
 .films-leave {
@@ -124,7 +131,7 @@ a:hover {
 
 .films-leave.films-leave-active {
   opacity: 0.01;
-  transition: opacity 300ms ease-in;
+  transition: opacity 500ms ease-in;
 }
 
 .films-appear {
@@ -134,4 +141,22 @@ a:hover {
 .films-appear.films-appear-active {
   opacity: 1;
   transition: opacity 2s ease-in;
+}
+
+@media (min-width: 840px) {
+  .menu .mdl-cell--1-col {
+    width: calc(9% - 16px);
+  }
+}
+
+@media (max-width: 839px) {
+  .menu a button {
+    font-size: 11px;
+    color: #aaa;
+    height: 18px;
+    line-height: inherit;
+  }
+  .menu .mdl-grid {
+    padding-top: 0;
+  }
 }
