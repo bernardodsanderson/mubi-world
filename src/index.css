@@ -145,7 +145,7 @@ a:hover {
 
 @media (min-width: 840px) {
   .menu .mdl-cell--1-col {
-    width: calc(8.3% - 16px);
+    width: initial;
   }
 }
 
