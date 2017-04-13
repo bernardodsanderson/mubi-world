@@ -27,15 +27,17 @@ class App extends React.Component {
       it_IT: [],
       en_NZ: [],
       en_FI: [],
+      fr_FR: [],
+      es_MX: [],
       loaded: false
     }
   }
 
   componentWillMount() {
 
-    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI'];
+    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI', 'fr_FR', 'es_MX'];
     const full_location = {
-      'en_CA': 'Canada', 'en_US': 'US', 'en_GB': 'UK', 'en_AU': 'Australia', 'en_NO': 'Norway', 'en_SE': 'Sweden', 'en_DK': 'Denmark', 'en_IE': 'Ireland', 'it_IT': 'Italy', 'en_NZ': 'New Zealand', 'en_FI': 'Finland'
+      'en_CA': 'Canada', 'en_US': 'US', 'en_GB': 'UK', 'en_AU': 'Australia', 'en_NO': 'Norway', 'en_SE': 'Sweden', 'en_DK': 'Denmark', 'en_IE': 'Ireland', 'it_IT': 'Italy', 'en_NZ': 'New Zealand', 'en_FI': 'Finland', 'fr_FR': 'France', 'es_MX': 'Mexico'
     };
 
     const url = "https://api.justwatch.com/titles/";
@@ -86,7 +88,7 @@ class App extends React.Component {
             "query": null
           })
           .then(function (response) {
-            // console.log(response);
+            // if (element == 'es_MX') { console.log(response); }
             let storeRef = base.database().ref(element);
             let array_titles = [];
             response.data.items.forEach(function(film) {
@@ -100,8 +102,10 @@ class App extends React.Component {
               } else {
                 credit_director = 'No Director';
               }
-              if (credit_director === '') { credit_director = 'No Director'; }
-              array_titles.push([film.title, film.original_release_year, film.full_path, film.poster, credit_director]);
+              if (credit_director === '' || credit_director === undefined) { credit_director = 'No Director'; }
+              let poster = '';
+              if (film.poster !== undefined) { poster = film.poster; }
+              array_titles.push([film.title, film.original_release_year, film.full_path, poster, credit_director]);
             });
             storeRef.once("value", (snapshot) => {
               storeRef.set({
@@ -122,7 +126,7 @@ class App extends React.Component {
   }
 
   goThroughFilms() {
-    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI'];
+    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI', 'fr_FR', 'es_MX'];
 
     locations.forEach(place => {
       base.database().ref(place).once('value').then((snapshot) => {
@@ -164,6 +168,12 @@ class App extends React.Component {
             break;
           case 'en_FI':
             this.setState({en_FI: array_films});
+            break;
+          case 'fr_FR':
+            this.setState({fr_FR: array_films});
+            break;
+          case 'es_MX':
+            this.setState({es_MX: array_films});
             break;
           default:
             break;
@@ -209,6 +219,8 @@ class App extends React.Component {
             <Cell col={1}><a href="#fi"><Button ripple>Finland</Button></a></Cell>
             <Cell col={1}><a href="#dk"><Button ripple>Denmark</Button></a></Cell>
             <Cell col={1}><a href="#it"><Button ripple>Italy</Button></a></Cell>
+            <Cell col={1}><a href="#fr"><Button ripple>France</Button></a></Cell>
+            <Cell col={1}><a href="#mx"><Button ripple>Mexico</Button></a></Cell>
           </Grid>
         </div>
 
@@ -299,11 +311,27 @@ class App extends React.Component {
           </Grid>
         </div>
 
-        <div style={{width: '80%', margin: 'auto', marginBottom: '150px'}}>
+        <div style={{width: '80%', margin: 'auto'}}>
           <div className="location-header" id="it">Italy</div>
           <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.it_IT) }
+          </Grid>
+        </div>
+
+        <div style={{width: '80%', margin: 'auto'}}>
+          <div className="location-header" id="fr">France</div>
+          <div className="divider"></div>
+          <Grid className="demo-grid-ruler">
+          { this.toMap(this.state.fr_FR) }
+          </Grid>
+        </div>
+
+        <div style={{width: '80%', margin: 'auto', marginBottom: '150px'}}>
+          <div className="location-header" id="mx">Mexico</div>
+          <div className="divider"></div>
+          <Grid className="demo-grid-ruler">
+          { this.toMap(this.state.es_MX) }
           </Grid>
         </div>
 
