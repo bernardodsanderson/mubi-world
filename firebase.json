@@ -6,7 +6,7 @@
     "public": "build",
     // ...add the "headers" section to the "hosting" section.
     "headers": [ {
-      "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+      "source" : "**",
       "headers" : [ {
         "key" : "Access-Control-Allow-Origin",
         "value" : "*"
