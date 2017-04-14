@@ -31,4 +31,23 @@
       To create a production bundle, use `npm run build`.
     -->
   </body>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js', {scope: './'}).then(function() {
+          // Registration was successful. Now, check to see whether the service worker is controlling the page.
+          if (navigator.serviceWorker.controller) {
+            // If .controller is set, then this page is being actively controlled by the service worker.
+            console.log('This is being cached by a service worker.');
+          } else {
+            // If .controller isn't set, then prompt the user to reload the page so that the service worker can take
+            // control. Until that happens, the service worker's fetch handler won't be used.
+            console.log('This is NOT being cached by a service worker.');
+          }
+        }).catch(function(error) {
+          // Something went wrong during registration. The service-worker.js file
+          // might be unavailable or contain a syntax error.
+          console.log(error);
+        });
+      }
+    </script>
 </html>
