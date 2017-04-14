@@ -2,9 +2,10 @@
 // https://developers.google.com/web/fundamentals/getting-started/primers/service-workers
 // http://stackoverflow.com/questions/33262385/service-worker-force-update-of-new-assets
 
-var CACHE_NAME = 'my-site-cache-v1';
+var CACHE_NAME = 'cache-v1';
 var urlsToCache = [
-  '/'
+  './index.html',
+  './static/*'
 ];
 
 // Set the callback for the install step
@@ -19,12 +20,26 @@ self.addEventListener('install', function (event) {
   );
 });
 
+self.addEventListener('active', function (event) {
+  // Perform active steps
+  event.waitUntil(
+    caches.keys().then(function(CACHE_NAME) {
+      return Promise.all(CACHE_NAME.map(function(this_CACHE_NAME) {
+        if (this_CACHE_NAME !== CACHE_NAME) {
+          console.log('Removed cache');
+          return caches.delete(this_CACHE_NAME);
+        }
+      }))
+    })
+  )
+});
+
 self.addEventListener('fetch', function (event) {
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
+    caches.match(event.request).then(function(response) {
         // Cache hit - return response
         if (response) {
+          console.log('Found in cache');
           return response;
         }
 
@@ -34,27 +49,25 @@ self.addEventListener('fetch', function (event) {
         // to clone the response
         var fetchRequest = event.request.clone();
 
-        return fetch(fetchRequest).then(
-          function(response) {
-            // Check if we received a valid response
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // IMPORTANT: Clone the response. A response is a stream
-            // and because we want the browser to consume the response
-            // as well as the cache consuming the response, we need
-            // to clone it so we have 2 stream.
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-
+        return fetch(fetchRequest).then(function(response) {
+          // Check if we received a valid response
+          if(!response || response.status !== 200 || response.type !== 'basic') {
+            console.log('No response from fetch');
             return response;
           }
-        );
+
+          // IMPORTANT: Clone the response. A response is a stream
+          // and because we want the browser to consume the response
+          // as well as the cache consuming the response, we need
+          // to clone it so we have 2 stream.
+          var responseToCache = response.clone();
+
+          caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(event.request, responseToCache);
+          });
+
+          return response;
+        });
       })
     );
 });
