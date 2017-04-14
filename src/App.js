@@ -51,7 +51,7 @@ class App extends React.Component {
     base.auth().onAuthStateChanged(function(user) {
       if (user) {
           // User is signed in
-          console.log(user);
+          // console.log(user);
       } else {
           // User is signed out.
           base.auth().signInAnonymously().then(authData => {
