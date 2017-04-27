@@ -2,7 +2,7 @@
 // https://developers.google.com/web/fundamentals/getting-started/primers/service-workers
 // http://stackoverflow.com/questions/33262385/service-worker-force-update-of-new-assets
 
-var CACHE_NAME = 'cache-v5';
+var CACHE_NAME = 'cache-v6';
 var urlsToCache = [
   './index.html',
   './static/css/main.67495830.css',
