@@ -196,7 +196,7 @@ class App extends React.Component {
   toMap(data) {
     return (
       data.map((film, index) => (
-        <Cell key={index} col={2}><a target="_blank" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
+        <Cell key={index} col={2}><a target="_blank" rel="noopener" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
       ))
     )
   }
