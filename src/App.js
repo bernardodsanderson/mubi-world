@@ -92,9 +92,11 @@ class App extends React.Component {
             // if (element == 'es_MX') { console.log(response); }
             let storeRef = base.database().ref(element);
             let array_titles = [];
-            response.data.items.forEach(function(film) {
+            Object.keys(response.data.items).map(function(objIndex, index) {
+              let film = response.data.items[objIndex];
               let credit_director = '';
-              if (film.credits !== undefined) {
+              console.log(film);
+              if (film.credits !== undefined && film.credits !== null) {
                 film.credits.forEach(function(credit) {
                   if(credit.role === 'DIRECTOR') {
                     credit_director = credit.name;
@@ -196,7 +198,7 @@ class App extends React.Component {
   toMap(data) {
     return (
       data.map((film, index) => (
-        <Cell key={index} col={2}><a target="_blank" rel="noopener" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[4]} | {film[1]}</a></Cell>
+        <Cell key={index} col={2}><a target="_blank" rel="noopener" href={'https://www.justwatch.com'+film[2]}><img alt={film[3]} src={'https://static.justwatch.com/poster/'+film[3].split(/\//)[2]+'/s276/'+film[2].split(/\//)[3]} /><span>{film[0]}</span>{film[1]}</a></Cell>
       ))
     )
   }
