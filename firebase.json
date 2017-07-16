@@ -6,10 +6,10 @@
     "public": "build",
     // ...add the "headers" section to the "hosting" section.
     "headers": [ {
-      "source" : "*",
+      "source" : "index.html",
       "headers" : [ {
         "key" : "Access-Control-Allow-Origin",
-        "value" : "max-age=7200"
+        "value" : "*"
     } ]
     }, {
       "source" : "**/*.@(jpg|jpeg|gif|png)",

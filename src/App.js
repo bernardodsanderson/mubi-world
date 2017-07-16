@@ -72,8 +72,12 @@ class App extends React.Component {
       if (true) {
         locations.forEach(function(element) {
           // POST request
-          axios.post(url+element+url2, {
+          axios.options(url+element+url2, {
             'Content-Type': 'application/json',
+            'headers': {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
             "content_types":null,
             "presentation_types": null,
             "providers": ['mbi'],
