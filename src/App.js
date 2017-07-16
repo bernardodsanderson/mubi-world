@@ -95,7 +95,7 @@ class App extends React.Component {
             Object.keys(response.data.items).map(function(objIndex, index) {
               let film = response.data.items[objIndex];
               let credit_director = '';
-              console.log(film);
+              // console.log(film);
               if (film.credits !== undefined && film.credits !== null) {
                 film.credits.forEach(function(credit) {
                   if(credit.role === 'DIRECTOR') {
