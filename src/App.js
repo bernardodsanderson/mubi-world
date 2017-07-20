@@ -44,10 +44,6 @@ class App extends React.Component {
     const url = "https://api.justwatch.com/titles/";
     const url2 = "/popular";
 
-    // let date = new Date();
-    // let timestamp = (date.getDay())+'.'+(date.getHours());
-    // Math.abs(dbTimestamp - timestamp) > 0.5
-
     base.auth().onAuthStateChanged(function(user) {
       if (user) {
           // User is signed in
@@ -61,10 +57,8 @@ class App extends React.Component {
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode, errorMessage);
-            // ...
           });
       }
-      // ...
   });
 
     base.database().ref('en_US').once('value').then(function(snapshot) {
@@ -122,7 +116,7 @@ class App extends React.Component {
             });
           })
           .catch(function (error) {
-            // console.log(error);
+            console.log(error);
           });
         }, this);
       }
