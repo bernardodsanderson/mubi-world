@@ -9,10 +9,6 @@ body a {
   text-decoration: none;
 }
 
-a:hover {
-  opacity: 0.8;
-}
-
 /* General App */
 .App-header a {
   color: #bbb;
@@ -75,17 +71,20 @@ a:hover {
   opacity: 0.5;
 }
 
-.menu {
-  /*position: fixed;*/
+#menu {
   background-color: #222;
   color: white;
   padding: 1px 20px;
   opacity: 0.8;
-  /*width: 100%;*/
-  bottom: 0;
 }
 
-.menu a button {
+.sticky-menu {
+  position: fixed;
+  top: 0;
+  opacity: 1 !important;
+}
+
+#menu a button {
   font-size: 11px;
   color: #aaa;
 }
@@ -96,7 +95,8 @@ a:hover {
 }
 
 .mdl-cell a img:hover {
-  box-shadow: 1px 1px 1px #777;
+  border: 3px solid #44a9b8;
+  margin: -3px;
 }
 
 .mdl-cell a span {
@@ -144,19 +144,19 @@ a:hover {
 }
 
 @media (min-width: 840px) {
-  .menu .mdl-cell--1-col {
+  #menu .mdl-cell--1-col {
     width: initial;
   }
 }
 
 @media (max-width: 839px) {
-  .menu a button {
+  #menu a button {
     font-size: 11px;
     color: #aaa;
     height: 18px;
     line-height: inherit;
   }
-  .menu .mdl-grid {
+  #menu .mdl-grid {
     padding-top: 0;
   }
 }

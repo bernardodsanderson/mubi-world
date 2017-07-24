@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import base from './base';
-import { Grid, Cell, Button, ProgressBar } from 'react-mdl';
+import { Grid, Cell, Button } from 'react-mdl';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // import Scroll from 'react-scroll';
 
@@ -10,6 +10,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 // omdb api key = d23f0971
 // example (uses imdb number): http://img.omdbapi.com/?i=tt2294629&apikey=d23f0971 and for info: http://www.omdbapi.com/?t=demons+2
+
+const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI', 'fr_FR', 'es_MX', 'de_DE'];
 
 class App extends React.Component {
 
@@ -36,7 +38,6 @@ class App extends React.Component {
 
   componentWillMount() {
 
-    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI', 'fr_FR', 'es_MX', 'de_DE'];
     const full_location = {
       'en_CA': 'Canada', 'en_US': 'US', 'en_GB': 'UK', 'en_AU': 'Australia', 'en_NO': 'Norway', 'en_SE': 'Sweden', 'en_DK': 'Denmark', 'en_IE': 'Ireland', 'it_IT': 'Italy', 'en_NZ': 'New Zealand', 'en_FI': 'Finland', 'fr_FR': 'France', 'es_MX': 'Mexico', 'de_DE': 'Germany'
     };
@@ -53,7 +54,6 @@ class App extends React.Component {
           base.auth().signInAnonymously().then(authData => {
             console.log('AUTHED USER: ', authData.uid);
           }).catch(function(error) {
-            // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode, errorMessage);
@@ -107,6 +107,7 @@ class App extends React.Component {
               let poster = '/poster/1234/{profile}';
               if (film.poster !== undefined) { poster = film.poster; }
               array_titles.push([film.title, film.original_release_year, film.full_path, poster, credit_director]);
+              return 0;
             });
             storeRef.once("value", (snapshot) => {
               storeRef.set({
@@ -126,9 +127,20 @@ class App extends React.Component {
 
   }
 
-  goThroughFilms() {
-    const locations = ['en_CA', 'en_US', 'en_GB', 'en_AU', 'en_NO', 'en_SE', 'en_DK', 'en_IE', 'it_IT', 'en_NZ', 'en_FI', 'fr_FR', 'es_MX', 'de_DE'];
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
 
+  handleScroll(event) {
+    let scrollTop = event.srcElement.body.scrollTop;
+    if (scrollTop > 150) {
+      document.getElementById('menu').classList.add("sticky-menu");
+    } else {
+      document.getElementById('menu').classList.remove("sticky-menu");
+    }
+  }
+
+  goThroughFilms() {
     locations.forEach(place => {
       base.database().ref(place).once('value').then((snapshot) => {
         let all_films = snapshot.val();
@@ -210,7 +222,7 @@ class App extends React.Component {
           <h2>MUBI <img alt="logo" src={ require('./mubi.png')} /> WORLD</h2>
         </div>
 
-        <div className="menu">
+        <div id="menu">
           <Grid style={{justifyContent: 'center'}}>
             <Cell col={1}><a href="#us"><Button ripple>US</Button></a></Cell>
             <Cell col={1}><a href="#ca"><Button ripple>Canada</Button></a></Cell>
@@ -239,7 +251,6 @@ class App extends React.Component {
           <div className="location-header" id="us">United States</div>
           <div className="divider"></div>
           <Grid className="demo-grid-ruler">
-          <div style={{display: this.state.loaded ? 'block' : 'none'}}><ProgressBar indeterminate /></div>
           { this.toMap(this.state.en_US) }
           </Grid>
         </div>
