@@ -31,11 +31,10 @@ body a {
 }
 
 .location-header {
-  margin-top: 40px;
   font-weight: 700;
   font-size: 24px;
   margin-bottom: 30px;
-  padding-top: 10px;
+  padding-top: 140px;
   text-transform: uppercase;
 }
 
@@ -151,12 +150,18 @@ body a {
 
 @media (max-width: 839px) {
   #menu a button {
-    font-size: 11px;
+    font-size: 9px;
     color: #aaa;
     height: 18px;
     line-height: inherit;
   }
   #menu .mdl-grid {
     padding-top: 0;
+  }
+  #menu .mdl-cell {
+    margin: 2px 0;
+  }
+  .location-header {
+    padding-top: 100px;
   }
 }

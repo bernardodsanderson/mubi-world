@@ -248,7 +248,7 @@ class App extends React.Component {
       <ReactCSSTransitionGroup transitionName="films" transitionEnterTimeout={800} transitionLeaveTimeout={500} transitionAppear={true} transitionAppearTimeout={2000}>
 
         <div style={{width: '80%', margin: 'auto'}}>
-          <div className="location-header" id="us">United States</div>
+          <div className="location-header" id="us" style={{paddingTop: '80px'}}>United States</div>
           <div className="divider"></div>
           <Grid className="demo-grid-ruler">
           { this.toMap(this.state.en_US) }
