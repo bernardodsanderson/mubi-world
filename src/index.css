@@ -164,4 +164,8 @@ body a {
   .location-header {
     padding-top: 100px;
   }
+  #menu {
+    padding: 0;
+    width: 100%;
+  }
 }
