@@ -1,8 +1,5 @@
 # Mubi World
 
-[https://mubi.world](https://mubi.world)
-
-
 > A look at what's playing on MUBI around the world
 
 
